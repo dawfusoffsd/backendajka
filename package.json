@@ -1,0 +1,33 @@
+{
+  "name": "asset-custody-backend",
+  "version": "1.0.0",
+  "description": "Asset Custody Management System Backend",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "migrate": "node migrations/run.js",
+    "test": "node test-db.js",
+    "seed": "node migrations/seed.js"
+  },
+  "keywords": [
+    "asset",
+    "custody",
+    "inventory"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "better-sqlite3": "^12.8.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.11.3",
+    "sqlite3": "^6.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

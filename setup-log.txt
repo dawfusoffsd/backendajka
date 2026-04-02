@@ -1,0 +1,114 @@
+[0;36m📝 Logging to: setup-log.txt[0m
+
+[1;33m[STEP 1/15][0m Checking prerequisites...
+[0;32m✅ Node.js v24.13.0[0m
+[0;32m✅ npm 11.12.1[0m
+
+[1;33m[STEP 2/15][0m Cleaning previous installation...
+[0;34mRemoving old node_modules...[0m
+[0;34mRemoving package-lock.json...[0m
+[0;32m✅ Cleanup complete[0m
+
+[1;33m[STEP 3/15][0m Setting up package.json...
+[0;32m✅ package.json created[0m
+
+[1;33m[STEP 4/15][0m Installing dependencies...
+
+added 127 packages, and audited 128 packages in 7s
+
+22 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+[0;32m✅ Dependencies installed[0m
+
+[1;33m[STEP 5/15][0m Creating directory structure...
+[0;32m✅ Directories created[0m
+
+[1;33m[STEP 6/15][0m Testing PostgreSQL connection...
+[0;31m❌ Cannot connect to PostgreSQL[0m
+[1;33m⚠️  Please ensure PostgreSQL is running[0m
+[0;34m💡 Common solutions:[0m
+   1. Start PostgreSQL service: [0;36mnet start postgresql-x64-14[0m
+   2. Check if installed: [0;36mpsql --version[0m
+   3. Default password is usually 'postgres' or 'admin'
+
+[1;33mCreating .env with default values...[0m
+
+[1;33m[STEP 7/15][0m Creating .env file...
+[0;32m✅ .env file created with auto-detected settings[0m
+
+[1;33m[STEP 8/15][0m Creating database config...
+[0;32m✅ Database config created[0m
+
+[1;33m[STEP 9/15][0m Creating database...
+Error: 
+
+[1;33m[STEP 10/15][0m Creating migration script...
+[0;32m✅ Migration script created[0m
+
+[1;33m[STEP 11/15][0m Creating seed data script...
+[0;32m✅ Seed script created[0m
+
+[1;33m[STEP 12/15][0m Creating test script...
+[0;32m✅ Test script created[0m
+
+[1;33m[STEP 13/15][0m Creating Express server...
+[0;32m✅ Server created[0m
+
+[1;33m[STEP 14/15][0m Running database migrations...
+❌ Database connection failed: 
+C:\Users\n\Desktop\it\asset-custody-backend\node_modules\pg-pool\index.js:45
+    Error.captureStackTrace(err)
+          ^
+
+AggregateError [ECONNREFUSED]: 
+    at C:\Users\n\Desktop\it\asset-custody-backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async runMigration (C:\Users\n\Desktop\it\asset-custody-backend\migrations\run.js:190:18) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:5432
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 5432
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:5432
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 5432
+    }
+  ]
+}
+
+Node.js v24.13.0
+[1;33m⚠️  Migrations had issues, but continuing...[0m
+
+[1;33m[STEP 15/15][0m Running final tests...
+
+🧪 Testing Database Connection
+
+══════════════════════════════════════════════════
+
+📌 Test 1: Database Connection
+❌ Database connection failed: 
+
+══════════════════════════════════════════════════
+
+❌ Database test failed:
+   Error: 
+
+💡 Solutions:
+   1. Make sure PostgreSQL is running
+   2. Check your .env database credentials
+   3. Verify PostgreSQL is listening on the correct port
+
+./setup.sh: line 900: warning: here-document at line 885 delimited by end-of-file (wanted `EOF')
