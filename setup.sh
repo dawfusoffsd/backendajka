@@ -1,24 +1,60 @@
 #!/bin/bash
 
-cd /root/back/backendajka
+echo "📤 Git Push Helper"
+echo "════════════════════════════════════════"
 
-echo "🔧 Fixing PORT issue..."
+# Check for changes
+if [ -z "$(git status --porcelain)" ]; then
+    echo "✅ No changes to commit"
+    exit 0
+fi
 
-# Replace PORT in server.js
-sed -i 's/const PORT = process.env.PORT || 5000/const PORT = process.env.PORT || 80/g' src/server.js
-
-# Verify
-grep "const PORT" src/server.js
-
-# Commit
-git add src/server.js
-git commit -m "Fix PORT to 80"
-
-# Deploy
+# Show status
 echo ""
-echo "🚀 Deploying fix..."
-caprover deploy --appName backend
+echo "📋 Changed files:"
+git status --short
+echo ""
+
+# Choose action
+echo "What do you want to do?"
+echo "1) Quick push (auto message)"
+echo "2) Push with custom message"
+echo "3) Cancel"
+read -p "Choice [1]: " choice
+choice=${choice:-1}
+
+case $choice in
+    1)
+        MESSAGE="Update $(date '+%Y-%m-%d %H:%M')"
+        ;;
+    2)
+        read -p "📝 Commit message: " MESSAGE
+        if [ -z "$MESSAGE" ]; then
+            echo "❌ Message required"
+            exit 1
+        fi
+        ;;
+    3)
+        echo "❌ Cancelled"
+        exit 0
+        ;;
+    *)
+        echo "❌ Invalid choice"
+        exit 1
+        ;;
+esac
+
+# Execute
+echo ""
+echo "📦 Adding files..."
+git add .
+
+echo "💾 Committing: $MESSAGE"
+git commit -m "$MESSAGE"
+
+echo "🚀 Pushing to GitHub..."
+git push
 
 echo ""
-echo "✅ Done! Wait 30 seconds then test:"
-echo "   curl http://backend.47.84.106.100.sslip.io/health"
+echo "✅ Successfully pushed!"
+echo "🔗 Check: https://github.com/$(git remote get-url origin | sed 's/.*github.com[:/]\(.*\).git/\1/')"
