@@ -1,37 +1,24 @@
 #!/bin/bash
 
-echo "🔍 Git Diagnosis"
-echo "════════════════════════════════════════"
-echo ""
+cd /root/back/backendajka
 
-# Check if git initialized
-if [ ! -d .git ]; then
-    echo "❌ Git not initialized"
-    echo "Run: git init"
-    exit 1
-else
-    echo "✅ Git initialized"
-fi
+echo "🔧 Fixing PORT issue..."
 
-# Check git status
-echo ""
-echo "📋 Git Status:"
-git status
+# Replace PORT in server.js
+sed -i 's/const PORT = process.env.PORT || 5000/const PORT = process.env.PORT || 80/g' src/server.js
 
-# Check remote
-echo ""
-echo "🌐 Remote repositories:"
-git remote -v
+# Verify
+grep "const PORT" src/server.js
 
-# Check branches
-echo ""
-echo "🌿 Branches:"
-git branch -a
+# Commit
+git add src/server.js
+git commit -m "Fix PORT to 80"
 
-# Check commits
+# Deploy
 echo ""
-echo "📝 Recent commits:"
-git log --oneline -5 2>/dev/null || echo "No commits yet"
+echo "🚀 Deploying fix..."
+caprover deploy --appName backend
 
 echo ""
-echo "════════════════════════════════════════"
+echo "✅ Done! Wait 30 seconds then test:"
+echo "   curl http://backend.47.84.106.100.sslip.io/health"
